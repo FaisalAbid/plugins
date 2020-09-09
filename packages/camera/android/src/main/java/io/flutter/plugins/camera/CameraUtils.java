@@ -74,7 +74,6 @@ public final class CameraUtils {
       String cameraName, ResolutionPreset preset) {
     int cameraId = Integer.parseInt(cameraName);
     return CamcorderProfile.get(cameraId, CamcorderProfile.QUALITY_HIGH);
-    }
   }
 
   private static class CompareSizesByArea implements Comparator<Size> {

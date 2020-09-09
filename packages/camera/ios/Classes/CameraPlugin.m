@@ -693,16 +693,16 @@ FourCharCode const videoFormat = kCVPixelFormatType_32BGRA;
   _videoWriterInput.expectsMediaDataInRealTime = YES;
 
   // Add the audio input
-  if (_enableAudio) {
+
     AudioChannelLayout acl;
     bzero(&acl, sizeof(acl));
     acl.mChannelLayoutTag = kAudioChannelLayoutTag_Mono;
     NSDictionary *audioOutputSettings = nil;
     // Both type of audio inputs causes output video file to be corrupted.
     audioOutputSettings = [NSDictionary
-        dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kAudioFormatMPEG4AAC], AVFormatIDKey,
+        dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:kAudioFormatMPEG4AAC_HE], AVFormatIDKey,
                                      [NSNumber numberWithFloat:44100.0], AVSampleRateKey,
-                                     [NSNumber numberWithInt:1], AVNumberOfChannelsKey,
+                                     [NSNumber numberWithInt:2], AVNumberOfChannelsKey,
                                      [NSData dataWithBytes:&acl length:sizeof(acl)],
                                      AVChannelLayoutKey, nil];
     _audioWriterInput = [AVAssetWriterInput assetWriterInputWithMediaType:AVMediaTypeAudio
@@ -711,7 +711,7 @@ FourCharCode const videoFormat = kCVPixelFormatType_32BGRA;
 
     [_videoWriter addInput:_audioWriterInput];
     [_audioOutput setSampleBufferDelegate:self queue:_dispatchQueue];
-  }
+
 
   [_videoWriter addInput:_videoWriterInput];
   [_captureVideoOutput setSampleBufferDelegate:self queue:_dispatchQueue];
